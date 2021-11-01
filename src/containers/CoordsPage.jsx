@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import DailyTemperature from '../components/dailyTemperature/DailyTemperature';
+import { getCurrentWeather } from '../services/openWeatherAPI';
 
-export default function CoordsPage() {
-  const [long, setLong] = useState('current longitude');
-  const [lat, setLat] = useState('current latitude');
+const CoordsPage = () => {
+  const [loading, setLoading] = useState(true);
+  const [temperature, setTemperature] = useState('');
+  const [location, setLocation] = useState('');
 
   const options = {
     enableHighAccuracy: true,
@@ -11,8 +14,14 @@ export default function CoordsPage() {
   };
   
   function success(pos) {
-    setLong(pos.coords.longitude);
-    setLat(pos.coords.latitude);
+    const long = pos.coords.longitude;
+    const lat = pos.coords.latitude;
+    setLoading(false);
+    getCurrentWeather(lat, long, process.env.REACT_APP_OPEN_WEATHER_API_KEY)
+      .then((data) => {
+        setTemperature(data.main.temp);
+        setLocation(data.name);
+      });
   }
   
   function error(err) {
@@ -23,10 +32,8 @@ export default function CoordsPage() {
     navigator.geolocation.getCurrentPosition(success, error, options);
   }, []);
 
-  return (
-    <>
-      <h1>LONGITUDE:{long}</h1>
-      <h1>LATITUDE:{lat}</h1>
-    </>
-  );
-}
+  if(loading) return <h1>Loading...</h1>;
+  return  <DailyTemperature temperature={temperature} location={location} />;  
+};
+
+export default CoordsPage;
