@@ -4,13 +4,13 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import Button from '../containers/Button';
+import CoordsPage from '../../containers/CoordsPage';
 
 export default function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={Button} />
+        <Route path="/" exact component={CoordsPage} />
       </Switch>
     </Router>
   );
