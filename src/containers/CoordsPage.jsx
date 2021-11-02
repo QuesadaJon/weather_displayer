@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DailyTemperature from '../components/dailyTemperature/DailyTemperature';
 import { getCurrentWeather } from '../services/openWeatherAPI';
+import styles from'./CoordsPage.css';
 
 const CoordsPage = () => {
   const [loading, setLoading] = useState(true);
@@ -36,7 +37,7 @@ const CoordsPage = () => {
     navigator.geolocation.getCurrentPosition(success, error, options);
   }, []);
 
-  if(loading) return <h1>Loading...</h1>;
+  if(loading) return <p className={styles.Loading} >Loading...</p>;
   return  <DailyTemperature 
     temp={temperature}
     name={location}
