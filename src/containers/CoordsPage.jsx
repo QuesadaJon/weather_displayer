@@ -4,8 +4,10 @@ import { getCurrentWeather } from '../services/openWeatherAPI';
 
 const CoordsPage = () => {
   const [loading, setLoading] = useState(true);
-  const [temperature, setTemperature] = useState('');
+  const [temperature, setTemperature] = useState(0);
   const [location, setLocation] = useState('');
+  const [icon, setIcon] = useState('');
+  const [weatherDescription, setWeatherDescription] = useState('');
 
   const options = {
     enableHighAccuracy: true,
@@ -21,6 +23,8 @@ const CoordsPage = () => {
       .then((data) => {
         setTemperature(data.main.temp);
         setLocation(data.name);
+        setIcon(data.weather[0].icon);
+        setWeatherDescription(data.weather[0].description);
       });
   }
   
@@ -33,7 +37,12 @@ const CoordsPage = () => {
   }, []);
 
   if(loading) return <h1>Loading...</h1>;
-  return  <DailyTemperature temperature={temperature} location={location} />;  
+  return  <DailyTemperature 
+    temp={temperature}
+    name={location}
+    icon={icon}
+    description={weatherDescription}
+  />;  
 };
 
 export default CoordsPage;

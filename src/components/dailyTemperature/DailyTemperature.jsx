@@ -1,13 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DailyTemperature = ({ temperature, location }) => (
-  <p>It is currently {temperature}° in {location}</p>
+const DailyTemperature = ({  temp, name, icon, description }) => (
+  <figure>
+    <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={icon}/>
+    <figcaption>
+      <p>It is currently {description}</p>
+      <p>{temp}°F in {name}</p>
+    </figcaption>
+  </figure>
 );
 
 DailyTemperature.propTypes = {
-  temperature: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  temp: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default DailyTemperature;
+
+
