@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './DailyTemperature.css';
 
 const DailyTemperature = ({  temp, name, icon, description }) => (
-  <figure className={styles.Forecast}>
+  <figure className={styles.Forecast} data-testid="weather">
     <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={icon}/>
     <figcaption>
       <p>It is currently {description}</p>
