@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DailyTemperature from '../components/dailyTemperature/DailyTemperature';
 import FetchWeather from '../components/FetchWeather/FetchWeather';
-import { getCurrentWeather } from '../services/openWeatherAPI';
-import styles from'./CoordsPage.css';
+import styles from '../containers/CoordsPage.css';
 
 const CoordsPage = () => {
   const [emptyData, setEmptyData] = useState(true);
@@ -10,47 +9,17 @@ const CoordsPage = () => {
   const [location, setLocation] = useState('');
   const [icon, setIcon] = useState('');
   const [weatherDescription, setWeatherDescription] = useState('');
-  const [childData, setChildData] = useState({});
 
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
-  
-  function success(pos) {
-    const long = pos.coords.longitude;
-    const lat = pos.coords.latitude;
-    setEmptyData(false);
-    getCurrentWeather(lat, long, process.env.REACT_APP_OPEN_WEATHER_API_KEY)
-      .then(({ main, name, weather }) => {
-        setTemperature(main.temp);
-        setLocation(name);
-        setIcon(weather[0].icon);
-        setWeatherDescription(weather[0].description);
-      });
-  }
-  
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-
-  function getData() {
-    navigator.geolocation.getCurrentPosition(success, error, options);
-  }
-
-  function onClick() {
-    getData().then(setChildData);
-    console.log(childData);
-  }
-
-  
-  
-
-  if(emptyData) return <button onClick={onClick}>Fetch Weather</button>;
+  if(emptyData) return <FetchWeather 
+    setTemperature={setTemperature}
+    setLocation={setLocation}
+    setIcon={setIcon}
+    setWeatherDescription={setWeatherDescription}
+    setEmptyData={setEmptyData}
+  />;
   return  <DailyTemperature 
     temp={temperature}
-    name={location}
+    location={location}
     icon={icon}
     description={weatherDescription}
   />;
