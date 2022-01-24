@@ -51,6 +51,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.1",
     "msw": "^0.35.0",
+    "node-fetch": "^3.0.0",
     "postcss-import": "^14.0.2",
     "postcss-loader": "^6.2.0",
     "postcss-nested": "^5.0.6",
