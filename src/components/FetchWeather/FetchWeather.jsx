@@ -1,48 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getCurrentWeather } from '../../services/openWeatherAPI';
+import styles from './FetchWeather.css';
+import CurrentForecast from '../CurrentForecast/CurrentForecast';
+import FiveDayForecast from '../FiveDayForecast/FiveDayForecast';
 
 export default function FetchWeather({
   setTemperature,
   setLocation,
   setIcon,
   setWeatherDescription,
-  setEmptyData }) {
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
+  setForecast,
+  setEmptyData,
+  setLoading,
+  loading }) {
   
-  function success(pos) {
-    const long = pos.coords.longitude;
-    const lat = pos.coords.latitude;
-    setEmptyData(false);
-    getCurrentWeather(lat, long, process.env.REACT_APP_OPEN_WEATHER_API_KEY)
-      .then(({ main, name, weather }) => {
-        setTemperature(main.temp);
-        setLocation(name);
-        setIcon(weather[0].icon);
-        setWeatherDescription(weather[0].description);
-      });
-  }
-  
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-
-  function getData() {
-    navigator.geolocation.getCurrentPosition(success, error, options);
-  }
-
-  function onClick() {
-    getData();
-  }
-
+  if(loading) return <h1 className={styles.Loading}>Loading...</h1>;  
   return (
-    <div>
-      <button onClick={onClick}>Fetch Weather</button>
-    </div>
+    <figure className={styles.FetchWeather}>
+      <p>Choose Your Forecast!</p>
+      <p>
+        <CurrentForecast 
+          setTemperature={setTemperature}
+          setLocation={setLocation}
+          setIcon={setIcon}
+          setWeatherDescription={setWeatherDescription}
+          setEmptyData={setEmptyData}
+          setLoading={setLoading}
+        />
+        <FiveDayForecast
+          setLocation={setLocation}
+          setForecast={setForecast}
+          setEmptyData={setEmptyData}
+          setLoading={setLoading}
+        />
+      </p>
+    </figure>
   );
 }
 
@@ -51,5 +43,8 @@ FetchWeather.propTypes = {
   setLocation: PropTypes.func.isRequired,
   setIcon: PropTypes.func.isRequired,
   setWeatherDescription: PropTypes.func.isRequired,
+  setForecast:PropTypes.func.isRequired,
   setEmptyData: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
