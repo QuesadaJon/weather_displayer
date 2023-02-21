@@ -12,6 +12,8 @@ const CoordsPage = () => {
   const [weatherDescription, setWeatherDescription] = useState('');
   const [forecast, setForecast] = useState({});
   const [loading, setLoading] = useState(false);
+  const [date, setDate] = useState('');
+  const [newArray, setNewArray] = useState([]);
 
   if(emptyData) return <FetchWeather 
     setTemperature={setTemperature}
@@ -21,6 +23,8 @@ const CoordsPage = () => {
     setEmptyData={setEmptyData}
     setForecast={setForecast}
     setLoading={setLoading}
+    setDate={setDate}
+    setNewArray={setNewArray}
     loading={loading}
   />;
   if (Object.entries(forecast).length === 0) return <DailyTemperature 
@@ -29,7 +33,7 @@ const CoordsPage = () => {
     icon={icon}
     description={weatherDescription}
   />;
-  return <ForecastList forecast={forecast} location={location} />;
+  return <ForecastList forecast={forecast} location={location} date={date}/>;
 };
 
 export default CoordsPage;

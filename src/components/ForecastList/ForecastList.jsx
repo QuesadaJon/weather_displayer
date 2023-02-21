@@ -20,9 +20,9 @@ ForecastList.propTypes = {
   location: PropTypes.string.isRequired,
   forecast: PropTypes.arrayOf(
     PropTypes.shape({
-      dt: PropTypes.string.isRequired,
+      dt: PropTypes.number.isRequired,
       main: PropTypes.object.isRequired,
-      weather: PropTypes.object.isRequired,
+      weather: PropTypes.array.isRequired,
     })
   ).isRequired
 };

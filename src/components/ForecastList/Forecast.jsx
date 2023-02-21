@@ -19,5 +19,5 @@ Forecast.propTypes = {
   time: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   main: PropTypes.object.isRequired,
-  weather: PropTypes.object.isRequired,
+  weather: PropTypes.array.isRequired,
 };
