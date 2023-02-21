@@ -12,7 +12,8 @@ export default function FetchWeather({
   setForecast,
   setEmptyData,
   setLoading,
-  loading }) {
+  setNewArray,
+  loading   }) {
   
   if(loading) return <h1 className={styles.Loading}>Loading...</h1>;  
   return (
@@ -32,6 +33,7 @@ export default function FetchWeather({
           setForecast={setForecast}
           setEmptyData={setEmptyData}
           setLoading={setLoading}
+          setNewArray={setNewArray}
         />
       </p>
     </figure>
@@ -46,5 +48,6 @@ FetchWeather.propTypes = {
   setForecast:PropTypes.func.isRequired,
   setEmptyData: PropTypes.func.isRequired,
   setLoading: PropTypes.func.isRequired,
+  setNewArray: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
