@@ -4,5 +4,7 @@
 export default function TakeFiveTimes({
   newArray
 }) {
+  let parsedArray;
   newArray;
+  return parsedArray;
 }
