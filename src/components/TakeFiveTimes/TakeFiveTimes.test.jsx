@@ -1,6 +1,13 @@
 const request = require('supertest');
-import TakeFivesTimes from './TakeFiveTimes';
+const TakeFiveTimes = require('./TakeFiveTimes');
 
-describe('Takes array and filters one of each day at the noon time slot', () => {
+describe('TakeFiveTimes test', () => {
+  it('parses an array taking only five noon times from each day', () => {
+    TakeFiveTimes();
+  });
+
+  expect(response.body).toEqual({
+
+  });
 
 });
